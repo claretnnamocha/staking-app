@@ -432,7 +432,7 @@ const contractAddress = "0x06F979F9074c61330a1A0dCb93e80E9918CdFeB6"; // Replace
 const SmartContract = () => {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState([]);
-  const [stakeAmount, setStakeAmount] = useState("");
+  const [stakeAmount, setStakeAmount] = useState("0");
   const [contract, setContract] = useState(null);
 
   useEffect(() => {
@@ -464,7 +464,9 @@ const SmartContract = () => {
     if (web3 && accounts.length > 0) {
       try {
         await contract.methods
-          .stake(parseInt(parseFloat(stakeAmount) * 10 ** 18).toFixed())
+          .stake(
+            Number(parseInt(parseFloat(stakeAmount) * 10 ** 18)).toString()
+          )
           .send({ from: accounts[0] });
         alert("Stake successful");
       } catch (error) {
